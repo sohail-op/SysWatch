@@ -1,0 +1,109 @@
+services:
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+
+  server:
+    build: .
+    volumes:
+      - .:/app
+    ports:
+      - "3000:3000"
+    environment:
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - redis
+    command: npm run start
+
+  # Client 1 instances (Top CPU)
+  client1-1:
+    build: .
+    environment:
+      - REDIS_URL=redis://redis:6379
+      - CLIENT_ID=client1-1
+    command: node clients/client1/index.js
+    depends_on:
+      - redis
+
+  client1-2:
+    build: .
+    environment:
+      - REDIS_URL=redis://redis:6379
+      - CLIENT_ID=client1-2
+    command: node clients/client1/index.js
+    depends_on:
+      - redis
+
+  client1-3:
+    build: .
+    environment:
+      - REDIS_URL=redis://redis:6379
+      - CLIENT_ID=client1-3
+    command: node clients/client1/index.js
+    depends_on:
+      - redis
+
+  client1-4:
+    build: .
+    environment:
+      - REDIS_URL=redis://redis:6379
+      - CLIENT_ID=client1-4
+    command: node clients/client1/index.js
+    depends_on:
+      - redis
+
+  client1-5:
+    build: .
+    environment:
+      - REDIS_URL=redis://redis:6379
+      - CLIENT_ID=client1-5
+    command: node clients/client1/index.js
+    depends_on:
+      - redis
+
+  # Client 2 instances (Bottom CPU)
+  client2-1:
+    build: .
+    environment:
+      - REDIS_URL=redis://redis:6379
+      - CLIENT_ID=client2-1
+    command: node clients/client2/index.js
+    depends_on:
+      - redis
+
+  client2-2:
+    build: .
+    environment:
+      - REDIS_URL=redis://redis:6379
+      - CLIENT_ID=client2-2
+    command: node clients/client2/index.js
+    depends_on:
+      - redis
+
+  client2-3:
+    build: .
+    environment:
+      - REDIS_URL=redis://redis:6379
+      - CLIENT_ID=client2-3
+    command: node clients/client2/index.js
+    depends_on:
+      - redis
+
+  client2-4:
+    build: .
+    environment:
+      - REDIS_URL=redis://redis:6379
+      - CLIENT_ID=client2-4
+    command: node clients/client2/index.js
+    depends_on:
+      - redis
+
+  client2-5:
+    build: .
+    environment:
+      - REDIS_URL=redis://redis:6379
+      - CLIENT_ID=client2-5
+    command: node clients/client2/index.js
+    depends_on:
+      - redis

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Client Monitor</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #0e0e15;
+      color: #e0e0e0;
+    }
+    h1 {
+      text-align: center;
+      color: #cdd6f4;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #2e2e3e;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+    label {
+      font-weight: bold;
+      margin-right: 10px;
+      color: #cdd6f4;
+    }
+    select {
+      padding: 8px;
+      font-size: 16px;
+      border: 1px solid #45475a;
+      border-radius: 4px;
+      cursor: pointer;
+      background-color: #3b3b4f;
+      color: #e0e0e0;
+      transition: border-color 0.3s;
+    }
+    select:focus {
+      outline: none;
+      border-color: #89b4fa;
+    }
+    select option {
+      background-color: #3b3b4f;
+      color: #e0e0e0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border: 1px solid #45475a;
+    }
+    th {
+      background-color: #585b70;
+      color: #e0e0e0;
+      font-weight: bold;
+    }
+    tr:nth-child(even) {
+      background-color: #3b3b4f;
+    }
+    tr:hover {
+      background-color: #45475a;
+    }
+    @media (max-width: 600px) {
+      table {
+        font-size: 14px;
+      }
+      th, td {
+        padding: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Monitor</h1>
+  <label>Select Client: </label>
+  <select id="clientSelect">
+    <option value="client1-1">client1-1</option>
+    <option value="client1-2">client1-2</option>
+    <option value="client1-3">client1-3</option>
+    <option value="client1-4">client1-4</option>
+    <option value="client1-5">client1-5</option>
+
+    <option value="client2-1">client2-1</option>
+    <option value="client2-2">client2-2</option>
+    <option value="client2-3">client2-3</option>
+    <option value="client2-4">client2-4</option>
+    <option value="client2-5">client2-5</option>
+  </select>
+
+  <table border="1" id="dataTable">
+    <thead>
+      <tr><th>PID</th><th>CPU %</th><th>Memory %</th></tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script>
+    const select = document.getElementById('clientSelect');
+    const tbody = document.querySelector('#dataTable tbody');
+
+    async function fetchData() {
+      const clientId = select.value;
+      const res = await fetch(`/api/client-data?clientId=${clientId}`);
+      const data = await res.json();
+      const latest = data[data.length - 1]?.data || [];
+
+      tbody.innerHTML = latest.map(p =>
+        `<tr><td>${p.pid}</td><td>${p.cpu.toFixed(1)}</td><td>${p.mem.toFixed(1)}</td></tr>`
+      ).join('');
+    }
+
+    select.addEventListener('change', fetchData);
+    setInterval(fetchData, 3000);
+    fetchData();
+  </script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+{
+    "name": "syswatch",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "node server/index.js",
+        "dev": "nodemon server/index.js",
+
+        "client1:1": "CLIENT_ID=client1-1 node clients/client1/index.js",
+        "client1:2": "CLIENT_ID=client1-2 node clients/client1/index.js",
+        "client1:3": "CLIENT_ID=client1-3 node clients/client1/index.js",
+        "client1:4": "CLIENT_ID=client1-4 node clients/client1/index.js",
+        "client1:5": "CLIENT_ID=client1-5 node clients/client1/index.js",
+
+        "client2:1": "CLIENT_ID=client2-1 node clients/client2/index.js",
+        "client2:2": "CLIENT_ID=client2-2 node clients/client2/index.js",
+        "client2:3": "CLIENT_ID=client2-3 node clients/client2/index.js",
+        "client2:4": "CLIENT_ID=client2-4 node clients/client2/index.js",
+        "client2:5": "CLIENT_ID=client2-5 node clients/client2/index.js"
+    },
+    "type": "module",
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "cors": "^2.8.5",
+        "dotenv": "^16.5.0",
+        "express": "^5.1.0",
+        "ioredis": "^5.6.1",
+        "redis": "^5.5.6",
+        "systeminformation": "^5.27.1"
+    },
+    "devDependencies": {
+        "nodemon": "^3.1.10"
+    }
+}
+
+
+
+
