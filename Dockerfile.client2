@@ -1,0 +1,12 @@
+FROM node:18-alpine
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm install --production
+
+COPY . .
+
+ENV PUBLISH_INTERVAL_MS=5000
+
+CMD ["node", "clients/client2/index.js"]
