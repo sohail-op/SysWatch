@@ -110,7 +110,7 @@
       const latest = data[data.length - 1]?.data || [];
 
       tbody.innerHTML = latest.map(p =>
-        `<tr><td>${p.pid}</td><td>${p.cpu.toFixed(1)}</td><td>${p.mem.toFixed(1)}</td></tr>`
+        `<tr><td>${p.pid}</td><td>${p.cpu.toFixed(2)}</td><td>${p.mem.toFixed(2)}</td></tr>`
       ).join('');
     }
 
